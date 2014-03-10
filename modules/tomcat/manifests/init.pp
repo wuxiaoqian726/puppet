@@ -1,3 +1,3 @@
 class tomcat inherits tomcat::params{
-   include tomcat::install
+include tomcat::install
 }

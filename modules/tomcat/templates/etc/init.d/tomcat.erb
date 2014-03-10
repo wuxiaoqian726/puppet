@@ -1,0 +1,69 @@
+#!/bin/bash
+#
+# chkconfig: 2345 20 80
+#
+
+PATH=/usr/bin:/sbin:/bin:/usr/sbin
+export PATH
+
+pidfile="/opt/app/run/tomcat-<%= instance_name %>.pid"
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+RETVAL=0
+
+start() {
+    echo -n $"starting tomcat-<%= instance_name %>: "
+    /bin/su - -c "/opt/app/bin/tomcat-<%= instance_name %>-start.sh" appuser    
+	RETVAL=$?
+    echo
+    return $RETVAL
+}
+
+stop() {
+    echo -n $"stopping tomcat-<%= instance_name %>: "
+	/bin/su - -c "/opt/app/bin/tomcat-<%= instance_name %>-stop.sh" appuser    
+	RETVAL=$?
+    echo
+    return $RETVAL
+}
+
+restart() {
+  stop
+  start
+}
+
+rh_status() {
+	status -p ${pidfile} tomcat-<%= instance_name %>
+	RETVAL=$?
+    return $RETVAL
+}
+
+rh_status_q() {
+    rh_status >/dev/null 2>&1
+}
+
+case "$1" in
+  start)
+      start
+    ;;
+    stop)
+        stop
+    ;;
+    restart|reload|force-reload)
+        restart
+    ;;
+    condrestart)
+        rh_status_q || exit 0
+        restart
+    ;;
+    status)
+        rh_status
+    ;;
+    *)
+        echo $"Usage: $0 {start|stop|status|restart|reload|force-reload|condrestart}"
+        exit 1
+esac
+
+exit $RETVAL

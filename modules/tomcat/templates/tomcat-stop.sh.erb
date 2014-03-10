@@ -1,0 +1,8 @@
+#!/bin/bash
+export JAVA_HOME="/opt/app/jdk"
+export JAVA_OPTS="-Dtomcat.server.port=<%= server_port %> -Dtomcat.http.port=<%= http_port %> -Dtomcat.instance.name=<%= instance_name %> <%= jvm_args %>"
+export CATALINA_BASE="/opt/app/webapps/<%= instance_name %>"
+export CATALINA_PID="/opt/app/run/tomcat-<%= instance_name %>.pid"
+/opt/app/tomcat/bin/catalina.sh stop 30 -force
+
+exit $?
