@@ -9,7 +9,8 @@ tomcat::deploy{
     instance_name=>"test-service",
     server_port=>"8005",
     http_port=>"8081",
-    jvm_args=>"-Xms600m -Xmx600m -XX:+HeapDumpOnOutOfMemoryError"
+    jvm_args=>"-Xms600m -Xmx600m -XX:+HeapDumpOnOutOfMemoryError",
+    conf_dir => "puppet:///files/webapps/test-service/conf",
 }
 
 }
