@@ -26,7 +26,7 @@ file{
     owner  => $tomcat::params::tomcat_user,
     group  => $tomcat::params::tomcat_group,
     content =>template("tomcat/tomcat-start.sh.erb"),
-    notify => Service["tomcat-${instance_name}"],
+#notify => Service["tomcat-${instance_name}"],
 }
 
 file{
@@ -55,14 +55,15 @@ file {
     require  => File["/opt/app/bin/tomcat-${instance_name}-start.sh", "/opt/app/bin/tomcat-${instance_name}-stop.sh"],
 }
 
-service {
-    "tomcat-${instance_name}":
-    enable  => true,
-    ensure  => running,
-    hasstatus  => true,
-    hasrestart  => true,
-    require  => File["/etc/init.d/tomcat-${instance_name}"],
-}
+#
+#service {
+#    "tomcat-${instance_name}":
+#    enable  => true,
+#    ensure  => running,
+#    hasstatus  => true,
+#    hasrestart  => true,
+#    require  => File["/etc/init.d/tomcat-${instance_name}"],
+#}
 
 
 }
