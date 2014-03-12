@@ -42,7 +42,7 @@ file {
     owner => $tomcat::params::tomcat_user,
     group => $tomcat::params::tomcat_group,
     ensure => directory,
-    mode => '0775';
+    mode => '0775',
 }
 
 file {
